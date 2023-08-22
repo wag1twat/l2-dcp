@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { EntityNotFoundError, TypeORMError } from 'typeorm';
+import { EntityNotFoundError, QueryFailedError, TypeORMError } from 'typeorm';
 
 @Catch(TypeORMError)
 export class TypeOrmExceptionFilter implements ExceptionFilter {
@@ -15,6 +15,16 @@ export class TypeOrmExceptionFilter implements ExceptionFilter {
         name: exception.name,
         message: 'Объект не найден в базе данных',
         response: request.query,
+      });
+    }
+
+    if (exception instanceof QueryFailedError) {
+      return response.status(400).json({
+        status: 400,
+        name: exception.name,
+        message: 'Ошибка запроса',
+        response: request.query,
+        x: exception.driverError,
       });
     }
 

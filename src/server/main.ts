@@ -12,6 +12,7 @@ import {
 import { TransformResponseInterceptor } from './interceptors';
 import { PORT } from 'src/shared/constants/env';
 import { RenderService } from 'nest-next';
+import { I18nValidationPipe } from 'nestjs-i18n';
 
 declare const module: any;
 
@@ -32,8 +33,7 @@ async function bootstrap() {
   server.use(bodyParser.urlencoded({ extended: true }));
 
   server.useGlobalPipes(
-    new ValidationPipe({
-      exceptionFactory,
+    new I18nValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       skipNullProperties: false,

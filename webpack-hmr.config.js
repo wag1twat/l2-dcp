@@ -14,7 +14,7 @@ module.exports = function (options, webpack) {
       ...options.plugins,
       new webpack.HotModuleReplacementPlugin(),
       new webpack.WatchIgnorePlugin({
-        paths: [/\.js$/, /\.d\.ts$/],
+        paths: [/\.js$/, /\.d\.ts$/, /\.d\.json$/],
       }),
       new RunScriptWebpackPlugin({ name: options.output.filename }),
     ],

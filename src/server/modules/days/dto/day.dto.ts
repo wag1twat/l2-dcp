@@ -3,67 +3,55 @@ import {
   IsArray,
   IsInt,
   IsNotEmpty,
-  IsString,
   Min,
   ArrayMinSize,
   ValidateNested,
+  IsISO8601,
+  IsUUID,
 } from 'class-validator';
+import { i18nValidationMessage } from 'src/i18n/i18nValidationMessage';
 import { OptionEntity } from 'src/server/modules/options/entities/option.entity';
 
-class PostOption {
-  @IsNotEmpty()
-  @IsString()
+class Option {
+  @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
+  @IsUUID('all', {
+    message: i18nValidationMessage('validation.IS_UUID'),
+  })
   id!: OptionEntity['id'];
 
-  @IsNotEmpty()
-  @IsInt()
-  @Min(1)
+  @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
+  @IsInt({ message: i18nValidationMessage('validation.IS_INT') })
+  @Min(1, { message: i18nValidationMessage('validation.MIN') })
   count!: number;
 
-  @IsArray()
-  @ArrayMinSize(1)
-  @IsString({ each: true })
+  @IsArray({ message: i18nValidationMessage('validation.IS_ARRAY') })
+  @ArrayMinSize(1, { message: i18nValidationMessage('validation.ARRAY_MIN') })
+  @IsUUID('all', {
+    each: true,
+    message: i18nValidationMessage('validation.IS_UUID'),
+  })
   users!: string[];
 }
 
 export class PostDayDto {
   @IsNotEmpty()
-  @IsString()
+  @IsISO8601(undefined, {
+    message: i18nValidationMessage('validation.IS_ISO8601'),
+  })
   date!: string;
 
-  @IsNotEmpty()
-  @IsArray()
-  @ArrayMinSize(1)
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.NOT_EMPTY'),
+  })
+  @IsArray({ message: i18nValidationMessage('validation.IS_ARRAY') })
+  @ArrayMinSize(1, { message: i18nValidationMessage('validation.ARRAY_MIN') })
   @ValidateNested({ each: true })
-  @Type(() => PostOption)
-  options!: PostOption[];
-}
-
-class PatchOption {
-  @IsNotEmpty()
-  @IsString()
-  id!: OptionEntity['id'];
-
-  @IsNotEmpty()
-  @IsInt()
-  @Min(1)
-  count!: number;
-
-  @IsArray()
-  @ArrayMinSize(1)
-  @IsString({ each: true })
-  users!: string[];
+  @Type(() => Option)
+  options!: Option[];
 }
 
 export class PatchDayDto extends PostDayDto {
   constructor() {
     super();
   }
-
-  @IsNotEmpty()
-  @IsArray()
-  @ArrayMinSize(1)
-  @ValidateNested({ each: true })
-  @Type(() => PatchOption)
-  options!: PatchOption[];
 }

@@ -8,6 +8,7 @@ import {
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
+import { I18nValidationExceptionFilter } from 'nestjs-i18n';
 import {
   HttpExceptionFilter,
   TypeOrmExceptionFilter,
@@ -17,8 +18,8 @@ import { DaysService } from './days.service';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
 
 @Controller('api/days')
-@UseFilters(TypeOrmExceptionFilter, HttpExceptionFilter)
 @UseInterceptors(TransformResponseInterceptor)
+@UseFilters(new I18nValidationExceptionFilter(), TypeOrmExceptionFilter)
 export class DaysController {
   constructor(private daysService: DaysService) {}
   @Get()

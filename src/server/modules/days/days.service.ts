@@ -74,7 +74,13 @@ export class DaysService {
 
       const l = dto.options.length;
       for (let i = 0; i < l; i++) {
-        let option = queryRunner.manager.create(DayOptionEntity);
+        let option = await queryRunner.manager.findOne(DayOptionEntity, {
+          where: { day: entityId(id), option: entityId(dto.options[i].id) },
+        });
+
+        if (option == null) {
+          option = queryRunner.manager.create(DayOptionEntity);
+        }
 
         options.push(
           Object.assign(option, {

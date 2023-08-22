@@ -1,0 +1,14 @@
+{
+  "NOT_EMPTY": "{property} не может быть пустым",
+  "INVALID_EMAIL": "email не валиден",
+  "INVALID_BOOLEAN": "{property} должно быть булевым",
+  "MIN": "{property} со значением: \"{value}\" должно быть как минимум равно {constraints.0}",
+  "MAX": "{property} со значением: \"{value}\" должнл быть меньше чем {constraints.0}",
+  "ARRAY_MIN": "{property} должно иметь длинну как минимум {constraints.0}",
+  "ARRAY_MAX": "{property} должно иметь длинну меньше чем {constraints.0}",
+  "IS_STRING": "{property} должно быть строкой",
+  "IS_ISO8601": "{property} должна быть допустимой строкой даты ISO 8601",
+  "IS_INT": "{property} должно быть числом",
+  "IS_ARRAY": "{property} должно быть массивом",
+  "IS_UUID": "{property} должно быть строкой формата UUID"
+}
