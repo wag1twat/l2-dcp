@@ -1,7 +1,11 @@
 import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
-import { OptionEntity } from '../entities/option.entity';
-import { Migration1692480264014 } from '../migrations/development/1692480264014-migration';
+import { DayOptionEntity } from '../modules/days/entities/day-option.entity';
+import { DayEntity } from '../modules/days/entities/day.entity';
+import { OptionEntity } from '../modules/options/entities/option.entity';
+import { UserDayEntity } from '../modules/users/entities/user-day.entity';
+import { UserEntity } from '../modules/users/entities/user.entity';
+import { Migration1692716194064 } from '../migrations/development/1692716194064-migration';
 
 config();
 
@@ -12,7 +16,13 @@ export const dataSource = new DataSource({
   migrationsRun: false,
   logging: true,
   logger: 'file',
-  entities: [OptionEntity],
-  migrations: [Migration1692480264014],
+  entities: [
+    OptionEntity,
+    DayOptionEntity,
+    DayEntity,
+    UserEntity,
+    UserDayEntity,
+  ],
+  migrations: [Migration1692716194064],
   dropSchema: false,
 });

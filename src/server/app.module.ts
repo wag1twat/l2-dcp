@@ -4,23 +4,34 @@ import { RenderModule } from 'nest-next';
 import { NODE_ENV } from 'src/shared/constants/env';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DaysModule } from './modules/days/days.module';
 import { OptionsModule } from './modules/options';
+import { UsersModule } from './modules/users/users.module';
+import { DaysService } from './modules/days/days.service';
+import { DatabaseModule } from './database/database.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 declare const module: any;
 
-const next = Next({ dev: NODE_ENV !== 'production' });
-
-@Module({})
+@Module({
+  imports: [
+    DatabaseModule,
+    EventEmitterModule.forRoot(),
+    DaysModule,
+    OptionsModule,
+    UsersModule,
+  ],
+  providers: [DaysService],
+})
 export class AppModule {
   public static initialize(): DynamicModule {
-    /* При инициализации модуля попробуем извлечь инстанс RenderModule
-            из персистентных данных между перезагрузками модуля */
     const renderModule =
-      module.hot?.data?.renderModule ?? RenderModule.forRootAsync(next);
+      module.hot?.data?.renderModule ??
+      RenderModule.forRootAsync(Next({ dev: NODE_ENV === 'development' }), {
+        viewsDir: null,
+      });
 
     if (module.hot) {
-      /* При завершении работы старого модуля
-                будем кэшировать инстанс RenderModule */
       module.hot.dispose((data: any) => {
         data.renderModule = renderModule;
       });
@@ -28,7 +39,7 @@ export class AppModule {
 
     return {
       module: AppModule,
-      imports: [renderModule, OptionsModule],
+      imports: [renderModule],
       controllers: [AppController],
       providers: [AppService],
     };

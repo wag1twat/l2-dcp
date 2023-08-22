@@ -1,14 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import {
   Column,
   CreateDateColumn,
-  DataSource,
   Entity,
   PrimaryGeneratedColumn,
-  Repository,
   UpdateDateColumn,
 } from 'typeorm';
-import { createRepositoryProvider } from '../utils';
 
 @Entity({ name: 'options' })
 export class OptionEntity {
@@ -30,24 +26,17 @@ export class OptionEntity {
   name!: string;
 
   @Column({
-    type: 'smallint',
+    type: 'integer',
+    default: 0,
   })
   cost_in_points!: number;
 
   @Column({
     type: 'integer',
+    default: 0,
   })
   cost_in_adenas!: number;
-}
 
-@Injectable()
-export class OptionsRepository extends Repository<OptionEntity> {
-  constructor(private dataSource: DataSource) {
-    super(OptionEntity, dataSource.createEntityManager());
-  }
+  @Column({ type: 'boolean', default: false })
+  deleted!: boolean;
 }
-
-export const optionsRepositoryProvider = createRepositoryProvider(
-  'OPTIONS_REPOSITORY',
-  OptionEntity,
-);

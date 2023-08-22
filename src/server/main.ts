@@ -4,6 +4,14 @@ import * as bodyParser from 'body-parser';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import morgan from 'morgan';
+import {
+  exceptionFactory,
+  HttpExceptionFilter,
+  TypeOrmExceptionFilter,
+} from './filters';
+import { TransformResponseInterceptor } from './interceptors';
+import { PORT } from 'src/shared/constants/env';
+import { RenderService } from 'nest-next';
 
 declare const module: any;
 
@@ -13,15 +21,19 @@ async function bootstrap() {
     { logger: ['error', 'warn', 'log'] },
   );
 
+  const service = server.get(RenderService);
+
+  service.setErrorHandler(async (err, req, res) => {
+    res.send(err.response);
+  });
+
   server.use(bodyParser.json());
 
   server.use(bodyParser.urlencoded({ extended: true }));
 
-  server.use(morgan('tiny'));
-
   server.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
+      exceptionFactory,
       whitelist: true,
       forbidNonWhitelisted: true,
       skipNullProperties: false,
@@ -31,7 +43,7 @@ async function bootstrap() {
 
   server.enableCors();
 
-  await server.listen(3000);
+  await server.listen(PORT);
 
   if (module.hot) {
     module.hot.accept();
