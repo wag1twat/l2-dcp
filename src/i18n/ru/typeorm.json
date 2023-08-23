@@ -1,0 +1,4 @@
+{
+  "EntityNotFoundError": "EntityNotFoundError",
+  "QueryFailedError": "QueryFailedError"
+}

@@ -1,14 +1,14 @@
 {
-  "NOT_EMPTY": "{property} cannot be empty",
-  "INVALID_EMAIL": "email is invalid",
-  "INVALID_BOOLEAN": "{property} is not a boolean",
-  "MIN": "{property} with value: \"{value}\" needs to be at least {constraints.0}",
-  "MAX": "{property} with value: \"{value}\" needs to be less than {constraints.0}",
-  "ARRAY_MIN": "{property} length needs to be at least {constraints.0}",
-  "ARRAY_MAX": "{property} length needs to be less than {constraints.0}",
-  "IS_STRING": "{property} must be a string",
-  "IS_DATE": "{property} must be a valid ISO 8601 date string",
-  "IS_INT": "{property} must be a number",
-  "IS_ARRAY": "{property} must be a array",
-  "IS_UUID": "{property} must be a UUID"
+  "NOT_EMPTY": "Property \"{property}\" cannot be empty",
+  "MIN": "Property \"{property}\" with value: \"{value}\" must be at least equal to {constraints.0}",
+  "MAX": "Property \"{property}\" with value: \"{value}\" must be less than {constraints.0}",
+  "ARRAY_MIN": "Length of \"{property}\" array must be at least {constraints.0}",
+  "ARRAY_MAX": "Length of \"{property}\" array must be less than {constraints.0}",
+  "IS_EMAIL": "Email not valid",
+  "IS_BOOLEAN": "\"{property}\" must be boolean",
+  "IS_STRING": "Property \"{property}\" must be a string",
+  "IS_ISO8601": "Property \"{property}\" must be a valid ISO 8601 date string",
+  "IS_INT": "Property \"{property}\" must be a number",
+  "IS_ARRAY": "Property \"{property}\" must be an array",
+  "IS_UUID": "Property \"{property}\" must be a UUID format string"
 }

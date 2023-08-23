@@ -67,8 +67,8 @@ export class DayEntityUpdateListener {
           .where({ id })
           .leftJoin('users.days', 'days')
           .leftJoin('days.day', 'day')
-          .addSelect('SUM(days.points) :: float', 'users_points')
-          .addSelect('SUM(days.adenas) :: float', 'users_adenas')
+          .addSelect('SUM(days.points) :: integer', 'users_points')
+          .addSelect('SUM(days.adenas) :: integer', 'users_adenas')
           .groupBy('users.id')
           .getOne();
 

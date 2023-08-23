@@ -4,18 +4,21 @@ import { Path } from "nestjs-i18n";
 export type I18nTranslations = {
     "validation": {
         "NOT_EMPTY": string;
-        "INVALID_EMAIL": string;
-        "INVALID_BOOLEAN": string;
         "MIN": string;
         "MAX": string;
         "ARRAY_MIN": string;
         "ARRAY_MAX": string;
+        "IS_EMAIL": string;
+        "IS_BOOLEAN": string;
         "IS_STRING": string;
-        "IS_DATE": string;
+        "IS_ISO8601": string;
         "IS_INT": string;
         "IS_ARRAY": string;
         "IS_UUID": string;
-        "IS_ISO8601": string;
+    };
+    "typeorm": {
+        "EntityNotFoundError": string;
+        "QueryFailedError": string;
     };
 };
 export type I18nPath = Path<I18nTranslations>;
