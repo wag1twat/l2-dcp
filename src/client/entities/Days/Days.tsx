@@ -5,10 +5,12 @@ import { DayEntity } from 'src/server/modules/days/entities/day.entity';
 import { getAllDatesInMonth, normalizeDate } from './model';
 
 interface DaysProps {
-  days: (typeof DayEntity)[];
+  days: DayEntity[];
 }
 
 export const Days = ({ days }: React.PropsWithChildren<DaysProps>) => {
+  console.log(days);
+
   const [year] = React.useState(() => DateTime.now().get('year'));
   const [month] = React.useState(() => DateTime.now().get('month'));
   const daysInMonth = getAllDatesInMonth(year, month);

@@ -11,6 +11,7 @@ import {
   DayEntityUpdateEvent,
 } from './events/day-entity-update.event';
 import { DateTime } from 'luxon';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class DaysService {

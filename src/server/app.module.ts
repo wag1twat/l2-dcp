@@ -49,7 +49,7 @@ declare const module: any;
     OptionsModule,
     UsersModule,
   ],
-  providers: [DaysService],
+  providers: [],
 })
 export class AppModule {
   public static initialize(): DynamicModule {

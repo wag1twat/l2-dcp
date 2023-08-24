@@ -34,7 +34,7 @@ class Option {
 }
 
 export class PostDayDto {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
   @IsISO8601(undefined, {
     message: i18nValidationMessage('validation.IS_ISO8601'),
   })

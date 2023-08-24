@@ -1,3 +1,3 @@
 export type WebConfig = {
-  features: Record<'days-list', boolean>;
+  features: Record<string, boolean>;
 };

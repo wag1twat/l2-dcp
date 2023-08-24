@@ -1,28 +1,27 @@
-import Router from 'next/router';
-import React, { FC } from 'react';
+import React from 'react';
 import { Days } from 'src/client/entities';
 import { Layout } from 'src/client/layout';
 import { DayEntity } from 'src/server/modules/days/entities/day.entity';
-import { isClient } from 'src/shared/constants/env';
 import { buildServerSideProps } from '../client/ssr/buildServerSideProps';
 
 interface IndexProps {
-  days: (typeof DayEntity)[];
+  days: DayEntity[];
 }
 
-const Index = ({ days = [] }: React.PropsWithChildren<IndexProps>) => {
-  if (isClient) {
-    console.log(Router.query);
-  }
+const Index = (props: React.PropsWithChildren<IndexProps>) => {
   return (
     <Layout>
-      <Days days={days} />
+      <Days days={props.days} />
     </Layout>
   );
 };
 
-export const getServerSideProps = buildServerSideProps<{}>(async () => {
-  return {};
-});
+export const getServerSideProps = buildServerSideProps<IndexProps, IndexProps>(
+  async (ctx) => {
+    return {
+      days: ctx.query.days,
+    };
+  },
+);
 
 export default Index;

@@ -2,14 +2,6 @@ import { NestApplication, NestFactory } from '@nestjs/core';
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 import * as bodyParser from 'body-parser';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import morgan from 'morgan';
-import {
-  exceptionFactory,
-  HttpExceptionFilter,
-  TypeOrmExceptionFilter,
-} from './filters';
-import { TransformResponseInterceptor } from './interceptors';
 import { PORT } from 'src/shared/constants/env';
 import { RenderService } from 'nest-next';
 import { I18nValidationPipe } from 'nestjs-i18n';
@@ -21,12 +13,6 @@ async function bootstrap() {
     AppModule.initialize(),
     { logger: ['error', 'warn', 'log'] },
   );
-
-  const service = server.get(RenderService);
-
-  service.setErrorHandler(async (err, req, res) => {
-    res.send(err.response);
-  });
 
   server.use(bodyParser.json());
 
@@ -42,6 +28,12 @@ async function bootstrap() {
   );
 
   server.enableCors();
+
+  const service = server.get(RenderService);
+
+  service.setErrorHandler(async (err, req, res) => {
+    res.send(err.response);
+  });
 
   await server.listen(PORT);
 
