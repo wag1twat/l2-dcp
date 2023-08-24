@@ -2,6 +2,10 @@
 
 import { Path } from "nestjs-i18n";
 export type I18nTranslations = {
+    "typeorm": {
+        "EntityNotFoundError": string;
+        "QueryFailedError": string;
+    };
     "validation": {
         "NOT_EMPTY": string;
         "MIN": string;
@@ -15,10 +19,6 @@ export type I18nTranslations = {
         "IS_INT": string;
         "IS_ARRAY": string;
         "IS_UUID": string;
-    };
-    "typeorm": {
-        "EntityNotFoundError": string;
-        "QueryFailedError": string;
     };
 };
 export type I18nPath = Path<I18nTranslations>;
