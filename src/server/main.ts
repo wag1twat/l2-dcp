@@ -5,6 +5,8 @@ import { AppModule } from './app.module';
 import { PORT } from 'src/shared/constants/env';
 import { RenderService } from 'nest-next';
 import { I18nValidationPipe } from 'nestjs-i18n';
+import { Response } from 'express';
+import { pageNotFoundPath, serverSideErrorOccuredPath } from './app.controller';
 
 declare const module: any;
 
@@ -31,8 +33,14 @@ async function bootstrap() {
 
   const service = server.get(RenderService);
 
-  service.setErrorHandler(async (err, req, res) => {
-    res.send(err.response);
+  service.setErrorHandler(async (err, req, res: Response) => {
+    // if (res.statusCode === 404) {
+    //   return res.redirect(pageNotFoundPath);
+    // }
+    // if (res.statusCode === 500) {
+    //   return res.redirect(serverSideErrorOccuredPath);
+    // }
+    return res.send(err.response);
   });
 
   await server.listen(PORT);

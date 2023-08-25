@@ -2,6 +2,39 @@
 
 import { Path } from "nestjs-i18n";
 export type I18nTranslations = {
+    "client": {
+        "options": {
+            "header": {
+                "buttons": {
+                    "options": string;
+                    "auth": string;
+                    "days": string;
+                };
+            };
+            "tables": {
+                "options": {
+                    "id": string;
+                    "name": string;
+                    "cost_in_points": string;
+                    "cost_in_adenas": string;
+                };
+            };
+        };
+        "days": {
+            "header": {
+                "buttons": {
+                    "options": string;
+                    "auth": string;
+                    "days": string;
+                };
+            };
+            "tables": {
+                "days": {
+                    "date": string;
+                };
+            };
+        };
+    };
     "typeorm": {
         "EntityNotFoundError": string;
         "QueryFailedError": string;

@@ -18,6 +18,7 @@ import {
 import { join } from 'path/posix';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RenderModule as DaysRenderModule } from './modules/days/render/render.module';
+import { RenderModule as OptionsRenderModule } from './modules/options/render/render.module';
 
 declare const module: any;
 
@@ -48,6 +49,7 @@ declare const module: any;
     DaysModule,
     DaysRenderModule,
     OptionsModule,
+    OptionsRenderModule,
     UsersModule,
   ],
   providers: [],

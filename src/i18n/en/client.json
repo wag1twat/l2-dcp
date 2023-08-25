@@ -1,0 +1,33 @@
+{
+  "options": {
+    "header": {
+      "buttons": {
+        "options": "Options",
+        "auth": "Auth",
+        "days": "Days"
+      }
+    },
+    "tables": {
+      "options": {
+        "id": "ID",
+        "name": "Name",
+        "cost_in_points": "Cost / dcp-points",
+        "cost_in_adenas": "Cost / adenas"
+      }
+    }
+  },
+  "days": {
+    "header": {
+      "buttons": {
+        "options": "Options",
+        "auth": "Auth",
+        "days": "Days"
+      }
+    },
+    "tables": {
+      "days": {
+        "date": "Date"
+      }
+    }
+  }
+}

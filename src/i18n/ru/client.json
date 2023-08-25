@@ -1,0 +1,33 @@
+{
+  "options": {
+    "header": {
+      "buttons": {
+        "options": "Опции",
+        "auth": "Вход",
+        "days": "Дни"
+      }
+    },
+    "tables": {
+      "options": {
+        "id": "ID",
+        "name": "Наименование",
+        "cost_in_points": "Стоимость / dcp-points",
+        "cost_in_adenas": "Стоимость / адена"
+      }
+    }
+  },
+  "days": {
+    "header": {
+      "buttons": {
+        "options": "Опции",
+        "auth": "Вход",
+        "days": "Дни"
+      }
+    },
+    "tables": {
+      "days": {
+        "date": "Дата"
+      }
+    }
+  }
+}

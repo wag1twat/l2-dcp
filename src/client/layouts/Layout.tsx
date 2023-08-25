@@ -1,17 +1,25 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
+import { TranslationHook } from '../utils/useTranslationHook';
 import { Header } from './Header';
 import { Main } from './Main';
 
-export const Layout = ({ children }: React.PropsWithChildren<{}>) => {
+interface LayoutProps {
+  translationHook: TranslationHook;
+}
+
+export const Layout = ({
+  translationHook,
+  children,
+}: React.PropsWithChildren<LayoutProps>) => {
   return (
     <Flex flexDirection="column" width="full" height="full">
       <Flex width="full" flexGrow={0}>
-        <Header />
+        <Header translationHook={translationHook} />
       </Flex>
       <Flex
         flexGrow={1}
-        overflow="auto"
+        overflow="hidden"
         background="brand-a"
         borderRadius={4}
         px={4}
