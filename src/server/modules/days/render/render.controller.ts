@@ -18,7 +18,7 @@ import {
 import { QueriesError, QueriesService } from '../../queries/queries.service';
 import { ConfigService } from '@nestjs/config';
 
-const renderController = 'days';
+export const renderController = 'days';
 
 @Controller(renderController)
 export class RenderController {
