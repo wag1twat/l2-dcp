@@ -1,23 +1,24 @@
 import React from 'react';
 import { Days } from 'src/client/entities';
 import { Layout } from 'src/client/layouts';
-import { I18nTranslations } from 'src/i18n/i18n.generated';
 import { DayEntity } from 'src/server/modules/days/entities/day.entity';
 import { buildServerSideProps } from 'src/client/ssr/buildServerSideProps';
 import { TranslationsProvider } from 'src/client/entities/Days/providers';
+import { PageBaseProps, PagesEnum } from 'src/shared/constants/pages';
+import { useStorageSetLastPagePath } from 'src/client/hooks';
 
-interface DaysPageProps {
+interface DaysPageProps extends PageBaseProps<'DaysPage'> {
   days: DayEntity[];
-  translations: I18nTranslations['client']['days'];
 }
 
 const DaysPage = ({
   days,
   translations,
 }: React.PropsWithChildren<DaysPageProps>) => {
+  useStorageSetLastPagePath(PagesEnum.DaysPage);
   return (
     <TranslationsProvider translations={translations}>
-      <Layout translationHook="days">
+      <Layout page={PagesEnum.DaysPage}>
         <Days days={days} />
       </Layout>
     </TranslationsProvider>

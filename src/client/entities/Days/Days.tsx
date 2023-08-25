@@ -1,7 +1,9 @@
 import { Table, Tbody, Th, Thead, Tr, Td } from '@chakra-ui/react';
 import { DateTime } from 'luxon';
+import Router from 'next/router';
 import React from 'react';
 import { DayEntity } from 'src/server/modules/days/entities/day.entity';
+import { isClient } from 'src/shared/constants/env';
 import { DateManager } from 'src/shared/utils/date-manager';
 import { useTranslations } from './providers';
 

@@ -1,7 +1,7 @@
 import { IsEnum, IsNotEmpty, Validate } from 'class-validator';
 import { i18nValidationMessage } from 'src/i18n/i18nValidationMessage';
 import { IsDate, IsDateAfter, IsDateBefore } from 'src/server/utils';
-import { Lang, Order } from 'src/shared/types/queries';
+import type { Lang, Order } from 'src/shared/types/queries';
 
 export class BaseQueryFromDate {
   @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })

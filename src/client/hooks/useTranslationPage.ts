@@ -1,13 +1,12 @@
+import { Page } from 'src/shared/constants/pages';
 import { useTranslations as useDaysTranslations } from '../entities/Days/providers';
 import { useTranslations as useOptionsTranslations } from '../entities/Options/providers';
 
-export type TranslationHook = 'options' | 'days';
-
-export const useTranslationHook = (hook: TranslationHook) => {
-  switch (hook) {
-    case 'options':
+export const useTranslationPage = (page: Page) => {
+  switch (page) {
+    case 'OptionsPage':
       return useOptionsTranslations();
-    case 'days':
+    case 'DaysPage':
       return useDaysTranslations();
     default:
       break;

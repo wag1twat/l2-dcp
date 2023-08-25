@@ -1,23 +1,24 @@
 import React from 'react';
 import { Options } from 'src/client/entities/Options';
 import { Layout } from 'src/client/layouts';
-import { I18nTranslations } from 'src/i18n/i18n.generated';
 import { OptionEntity } from 'src/server/modules/options/entities/option.entity';
 import { buildServerSideProps } from 'src/client/ssr/buildServerSideProps';
 import { TranslationsProvider } from 'src/client/entities/Options/providers';
+import { PageBaseProps, PagesEnum } from 'src/shared/constants/pages';
+import { useStorageSetLastPagePath } from 'src/client/hooks';
 
-interface OptionPageProps {
+interface OptionPageProps extends PageBaseProps<'OptionsPage'> {
   options: OptionEntity[];
-  translations: I18nTranslations['client']['options'];
 }
 
 const OptionPage = ({
   translations,
   options,
 }: React.PropsWithChildren<OptionPageProps>) => {
+  useStorageSetLastPagePath(PagesEnum.OptionsPage);
   return (
     <TranslationsProvider translations={translations}>
-      <Layout translationHook="options">
+      <Layout page={PagesEnum.OptionsPage}>
         <Options options={options} />
       </Layout>
     </TranslationsProvider>

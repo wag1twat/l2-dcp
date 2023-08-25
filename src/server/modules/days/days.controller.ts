@@ -8,11 +8,10 @@ import {
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
-import { classToPlain, instanceToPlain } from 'class-transformer';
 import { I18nValidationExceptionFilter } from 'nestjs-i18n';
 import { TypeOrmExceptionFilter } from 'src/server/filters';
 import { TransformResponseInterceptor } from 'src/server/interceptors';
-import { Order } from 'src/shared/types/queries';
+import type { Order } from 'src/shared/types/queries';
 import { DaysService } from './days.service';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
 

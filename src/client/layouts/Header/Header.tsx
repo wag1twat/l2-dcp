@@ -2,21 +2,23 @@ import { VStack, HStack, Button, Flex } from '@chakra-ui/react';
 import Router from 'next/router';
 import React from 'react';
 import {
-  TranslationHook,
-  useTranslationHook,
-} from 'src/client/utils/useTranslationHook';
-import { pathWithLang } from 'src/client/utils/pathWithLang';
-import { isClient } from 'src/shared/constants/env';
+  useStorageGetLastPagePath,
+  useTranslationPage,
+} from 'src/client/hooks';
+import { Page } from 'src/shared/constants/pages';
 
 interface HeaderProps {
-  translationHook: TranslationHook;
+  page: Page;
 }
 
 export const Header = ({
-  translationHook,
+  page,
   children,
 }: React.PropsWithChildren<HeaderProps>) => {
-  const translations = useTranslationHook(translationHook);
+  const translations = useTranslationPage(page);
+
+  const lastDaysPath = useStorageGetLastPagePath('DaysPage');
+  const lastOptionsPath = useStorageGetLastPagePath('OptionsPage');
 
   if (!translations) {
     return null;
@@ -26,13 +28,10 @@ export const Header = ({
     <VStack width="full" background="brand" p={4}>
       <Flex width="full" alignItems="center" justifyContent="space-between">
         <HStack>
-          <Button
-            size="sm"
-            onClick={() => Router.push(pathWithLang('/options'))}
-          >
+          <Button size="sm" onClick={() => Router.push(lastOptionsPath())}>
             {translations.header.buttons.options}
           </Button>
-          <Button size="sm" onClick={() => Router.push(pathWithLang('/days'))}>
+          <Button size="sm" onClick={() => Router.push(lastDaysPath())}>
             {translations.header.buttons.days}
           </Button>
         </HStack>

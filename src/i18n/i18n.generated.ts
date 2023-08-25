@@ -3,7 +3,7 @@
 import { Path } from "nestjs-i18n";
 export type I18nTranslations = {
     "client": {
-        "options": {
+        "OptionsPage": {
             "header": {
                 "buttons": {
                     "options": string;
@@ -20,7 +20,7 @@ export type I18nTranslations = {
                 };
             };
         };
-        "days": {
+        "DaysPage": {
             "header": {
                 "buttons": {
                     "options": string;

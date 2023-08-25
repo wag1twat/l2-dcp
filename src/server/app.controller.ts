@@ -1,10 +1,10 @@
 import { Controller, Get, Render, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
+import type { Response } from 'express';
 import querystring from 'node:querystring';
+import { PagesPathname } from 'src/shared/constants/pages';
 import { AppService } from './app.service';
 import { defaultQueries as defaultDaysRenderQueries } from './modules/days/render/render-queries.dto';
-import { renderController as daysRenderController } from './modules/days/render/render.controller';
 
 export const pageNotFoundPath = '/page-not-found';
 export const serverSideErrorOccuredPath = '/server-side-error-occurred';
@@ -29,7 +29,7 @@ export class AppController {
       this.configService.getOrThrow('FALLBACK_LANGUAGE'),
     );
     res.redirect(
-      `/${daysRenderController}?${querystring.stringify({
+      `/${PagesPathname.DaysPage}?${querystring.stringify({
         from: queries.from,
         to: queries.to,
         orderBy: queries.orderBy,

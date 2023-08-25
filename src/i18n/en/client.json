@@ -1,5 +1,5 @@
 {
-  "options": {
+  "OptionsPage": {
     "header": {
       "buttons": {
         "options": "Options",
@@ -16,7 +16,7 @@
       }
     }
   },
-  "days": {
+  "DaysPage": {
     "header": {
       "buttons": {
         "options": "Options",
