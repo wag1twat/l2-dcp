@@ -25,5 +25,8 @@ const merge = (errors: ValidationError[]): ExceptionFactoryType => {
   );
 };
 
-export const exceptionFactory = (errors: ValidationError[]) =>
+/**
+ * @deprecated
+ */
+const _exceptionFactory = (errors: ValidationError[]) =>
   new HttpException(merge(errors), 400);
