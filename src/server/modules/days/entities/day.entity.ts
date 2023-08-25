@@ -22,7 +22,7 @@ export class DayEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt!: string;
 
-  @Column({ type: 'timestamp with time zone' })
+  @Column({ type: 'timestamp without time zone', unique: true })
   date!: string;
 
   @Column({

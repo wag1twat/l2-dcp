@@ -2,18 +2,15 @@ import { Table, Tbody, Th, Thead, Tr, Td } from '@chakra-ui/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { DayEntity } from 'src/server/modules/days/entities/day.entity';
-import { getAllDatesInMonth, normalizeDate } from './model';
+import { DateManager } from 'src/shared/utils/date-manager';
 
 interface DaysProps {
   days: DayEntity[];
 }
 
 export const Days = ({ days }: React.PropsWithChildren<DaysProps>) => {
-  console.log(days);
-
   const [year] = React.useState(() => DateTime.now().get('year'));
   const [month] = React.useState(() => DateTime.now().get('month'));
-  const daysInMonth = getAllDatesInMonth(year, month);
 
   return (
     <Table
@@ -33,9 +30,9 @@ export const Days = ({ days }: React.PropsWithChildren<DaysProps>) => {
         </Tr>
       </Thead>
       <Tbody>
-        {daysInMonth.map((day) => (
-          <Tr key={day}>
-            <Td>{normalizeDate(day)}</Td>
+        {days.map((day) => (
+          <Tr key={day.id}>
+            <Td>{DateManager.CLIENT_DATE(day.date)}</Td>
           </Tr>
         ))}
       </Tbody>

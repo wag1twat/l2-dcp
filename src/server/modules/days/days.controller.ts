@@ -12,6 +12,7 @@ import { classToPlain, instanceToPlain } from 'class-transformer';
 import { I18nValidationExceptionFilter } from 'nestjs-i18n';
 import { TypeOrmExceptionFilter } from 'src/server/filters';
 import { TransformResponseInterceptor } from 'src/server/interceptors';
+import { Order } from 'src/shared/types/queries';
 import { DaysService } from './days.service';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
 
@@ -21,8 +22,13 @@ import { PatchDayDto, PostDayDto } from './dto/day.dto';
 export class DaysController {
   constructor(private daysService: DaysService) {}
   @Get()
-  async get(@Query('from') from: string, @Query('to') to: string) {
-    return await this.daysService.get(from, to);
+  async get(
+    @Query('from') from: string,
+    @Query('to') to: string,
+    @Query('orderBy') orderBy: string,
+    @Query('order') order: Order,
+  ) {
+    return await this.daysService.get(from, to, orderBy, order);
   }
 
   @Post()

@@ -11,6 +11,7 @@ import {
 } from 'class-validator';
 import { i18nValidationMessage } from 'src/i18n/i18nValidationMessage';
 import { OptionEntity } from 'src/server/modules/options/entities/option.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 
 class Option {
   @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
@@ -30,7 +31,7 @@ class Option {
     each: true,
     message: i18nValidationMessage('validation.IS_UUID'),
   })
-  users!: string[];
+  users!: UserEntity['id'][];
 }
 
 export class PostDayDto {

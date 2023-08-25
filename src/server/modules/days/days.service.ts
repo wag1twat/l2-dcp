@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DATA_SOURCE } from 'src/server/database/database.provider';
-import { entitiesId, entityId, ISOtoStartOfDay } from 'src/server/utils';
+import { entitiesId, entityId } from 'src/server/utils';
 import { Between, DataSource } from 'typeorm';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
 import { DayOptionEntity } from './entities/day-option.entity';
@@ -10,8 +10,8 @@ import {
   dayEntityUpdateEvent,
   DayEntityUpdateEvent,
 } from './events/day-entity-update.event';
-import { DateTime } from 'luxon';
-import { instanceToPlain } from 'class-transformer';
+import { DateManager } from 'src/shared/utils/date-manager';
+import { Order } from 'src/shared/types/queries';
 
 @Injectable()
 export class DaysService {
@@ -21,11 +21,12 @@ export class DaysService {
     private eventEmitter: EventEmitter2,
   ) {}
 
-  async get(from: string, to: string) {
+  async get(from: string, to: string, orderBy: string, order: Order) {
     return await this.dataSource
       .getRepository(DayEntity)
       .createQueryBuilder('days')
       .where({ date: Between(from, to) })
+      .orderBy(`days.${orderBy}`, order)
       .leftJoinAndSelect('days.options', 'options')
       .leftJoinAndSelect('options.option', 'option')
       .leftJoinAndSelect('options.users', 'users')
@@ -40,7 +41,7 @@ export class DaysService {
     await queryRunner.startTransaction();
 
     try {
-      const date = ISOtoStartOfDay(dto.date);
+      const date = DateManager.ISO_DATE(dto.date);
 
       let day = await queryRunner.manager.findOne(DayEntity, {
         where: { date },
@@ -69,7 +70,7 @@ export class DaysService {
     await queryRunner.startTransaction();
 
     try {
-      const date = ISOtoStartOfDay(dto.date);
+      const date = DateManager.ISO_DATE(dto.date);
 
       let options: DayOptionEntity[] = [];
 

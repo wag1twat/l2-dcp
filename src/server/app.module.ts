@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { DaysModule } from './modules/days/days.module';
 import { OptionsModule } from './modules/options';
 import { UsersModule } from './modules/users/users.module';
-import { DaysService } from './modules/days/days.service';
 import { DatabaseModule } from './database/database.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import {
@@ -18,6 +17,7 @@ import {
 } from 'nestjs-i18n';
 import { join } from 'path/posix';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RenderModule as DaysRenderModule } from './modules/days/render/render.module';
 
 declare const module: any;
 
@@ -46,6 +46,7 @@ declare const module: any;
     DatabaseModule,
     EventEmitterModule.forRoot(),
     DaysModule,
+    DaysRenderModule,
     OptionsModule,
     UsersModule,
   ],

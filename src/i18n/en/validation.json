@@ -1,14 +1,17 @@
 {
   "NOT_EMPTY": "Property \"{property}\" cannot be empty",
-  "MIN": "Property \"{property}\" with value: \"{value}\" must be at least equal to {constraints.0}",
-  "MAX": "Property \"{property}\" with value: \"{value}\" must be less than {constraints.0}",
-  "ARRAY_MIN": "Length of \"{property}\" array must be at least {constraints.0}",
-  "ARRAY_MAX": "Length of \"{property}\" array must be less than {constraints.0}",
+  "MIN": "Property \"{property}\" with value: \"{value}\" must be at least equal to \"{constraints.0}\"",
+  "MAX": "Property \"{property}\" with value: \"{value}\" must be less than \"{constraints.0}\"",
+  "ARRAY_MIN": "Length of \"{property}\" array must be at least \"{constraints.0}\"",
+  "ARRAY_MAX": "Length of \"{property}\" array must be less than \"{constraints.0}\"",
   "IS_EMAIL": "Email not valid",
   "IS_BOOLEAN": "\"{property}\" must be boolean",
   "IS_STRING": "Property \"{property}\" must be a string",
   "IS_ISO8601": "Property \"{property}\" must be a valid ISO 8601 date string",
+  "IS_DATE_AFTER": "Cвойство \"{property}\" should be more than \"{constraints.0}\"",
+  "IS_DATE_BEFORE": "Cвойство \"{property}\" should be less than \"{constraints.0}\"",
   "IS_INT": "Property \"{property}\" must be a number",
   "IS_ARRAY": "Property \"{property}\" must be an array",
-  "IS_UUID": "Property \"{property}\" must be a UUID format string"
+  "IS_UUID": "Property \"{property}\" must be a UUID format string",
+  "IS_ENUM": "Свойство \"{property}\" must be a \"{constraints.0}\""
 }

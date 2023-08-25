@@ -16,9 +16,12 @@ export type I18nTranslations = {
         "IS_BOOLEAN": string;
         "IS_STRING": string;
         "IS_ISO8601": string;
+        "IS_DATE_AFTER": string;
+        "IS_DATE_BEFORE": string;
         "IS_INT": string;
         "IS_ARRAY": string;
         "IS_UUID": string;
+        "IS_ENUM": string;
     };
 };
 export type I18nPath = Path<I18nTranslations>;

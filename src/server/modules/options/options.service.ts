@@ -1,34 +1,38 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { DATA_SOURCE } from 'src/server/database/database.provider';
+import { DataSource } from 'typeorm';
 import { PatchOptionDto, PostOptionDto } from './dto/option.dto';
 import { OptionEntity } from './entities/option.entity';
 
 @Injectable()
 export class OptionsService {
-  constructor(
-    @Inject(OptionEntity.name)
-    private optionsRepository: Repository<OptionEntity>,
-  ) {}
+  constructor(@Inject(DATA_SOURCE) private readonly dataSource: DataSource) {}
   async get() {
-    return this.optionsRepository.find();
+    return this.dataSource.getRepository(OptionEntity).find();
   }
 
   async post(dto: PostOptionDto) {
-    const entity = this.optionsRepository.create();
+    const entity = this.dataSource.getRepository(OptionEntity).create();
 
     Object.assign(entity, dto);
 
-    return await this.optionsRepository.save(entity);
+    return await this.dataSource.getRepository(OptionEntity).save(entity);
   }
 
   async patch(id: OptionEntity['id'], dto: PatchOptionDto) {
-    await this.optionsRepository.update({ id }, dto);
-    return await this.optionsRepository.findOneOrFail({ where: { id } });
+    await this.dataSource.getRepository(OptionEntity).update({ id }, dto);
+    return await this.dataSource
+      .getRepository(OptionEntity)
+      .findOneOrFail({ where: { id } });
   }
 
   async delete(id: OptionEntity['id']) {
-    await this.optionsRepository.update({ id }, { deleted: true });
+    await this.dataSource
+      .getRepository(OptionEntity)
+      .update({ id }, { deleted: true });
 
-    return await this.optionsRepository.findOneOrFail({ where: { id } });
+    return await this.dataSource
+      .getRepository(OptionEntity)
+      .findOneOrFail({ where: { id } });
   }
 }
