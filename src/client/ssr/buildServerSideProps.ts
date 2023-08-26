@@ -6,7 +6,6 @@ import {
   GetServerSidePropsContext,
 } from '../../shared/types/next';
 import { extractAppData } from './extractAppData';
-import { filterUnserializable } from './filterUnserializable';
 
 type StaticProps = {
   appData: Partial<AppData>;

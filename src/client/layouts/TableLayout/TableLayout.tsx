@@ -1,7 +1,7 @@
 import { Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
-interface TableLayoutProps {
+export interface TableLayoutProps {
   Toolbar: React.ReactNode;
 }
 

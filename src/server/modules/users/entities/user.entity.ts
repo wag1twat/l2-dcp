@@ -49,3 +49,8 @@ export class UserEntity {
   @JoinTable()
   days!: UserDayEntity[];
 }
+
+export type ClientUserEntity = Pick<
+  UserEntity,
+  'id' | 'adenas' | 'points' | 'name' | 'deleted'
+>;

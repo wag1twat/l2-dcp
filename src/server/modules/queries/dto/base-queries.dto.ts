@@ -47,14 +47,6 @@ export class BaseQueryLang {
   readonly lang!: Lang;
 }
 
-export class BaseQueryOrderBy {
-  @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
-  @IsEnum(['date'], {
-    message: i18nValidationMessage('validation.IS_ENUM'),
-  })
-  readonly orderBy!: 'date';
-}
-
 export class BaseQueryOrder {
   @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
   @IsEnum(['ASC', 'DESC'], {
@@ -62,3 +54,9 @@ export class BaseQueryOrder {
   })
   readonly order!: Order;
 }
+
+export const extractQueriesKeysFromClass = <T extends { keys: string[] }>(
+  ...args: T[]
+) => {
+  return args.reduce<string[]>((acc, current) => [...acc, ...current.keys], []);
+};

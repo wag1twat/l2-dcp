@@ -12,7 +12,24 @@
         "id": "ID",
         "name": "Name",
         "cost_in_points": "Cost / dcp-points",
-        "cost_in_adenas": "Cost / adenas"
+        "cost_in_adenas": "Cost / adenas",
+        "toolbar": {
+          "buttons": {
+            "add": "Add"
+          }
+        },
+        "actions": {
+          "delete": "Delete",
+          "edit": "Edit"
+        }
+      }
+    },
+    "shared": {
+      "adenas": {
+        "postfixes": {
+          "billion": "млрд",
+          "trillion": "трлн"
+        }
       }
     }
   },
@@ -26,7 +43,18 @@
     },
     "tables": {
       "days": {
-        "date": "Date"
+        "id": "ID",
+        "date": "Date",
+        "points": "Dcp-points",
+        "adenas": "Adenas"
+      }
+    },
+    "shared": {
+      "adenas": {
+        "postfixes": {
+          "billion": "bil",
+          "trillion": "tril"
+        }
       }
     }
   }

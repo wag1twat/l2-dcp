@@ -40,3 +40,8 @@ export class OptionEntity {
   @Column({ type: 'boolean', default: false })
   deleted!: boolean;
 }
+
+export type ClientOptionEntity = Pick<
+  OptionEntity,
+  'id' | 'cost_in_adenas' | 'cost_in_points' | 'name' | 'deleted'
+>;

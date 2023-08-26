@@ -1,3 +1,4 @@
+import { UserEntity } from 'dist/server/modules/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -45,3 +46,14 @@ export class DayEntity {
   @JoinTable()
   options!: DayOptionEntity[];
 }
+
+export type ClientDayEntity = Pick<
+  DayEntity,
+  'id' | 'date' | 'adenas' | 'points'
+> & {
+  options_count: number;
+  users_count: number;
+  options: Pick<DayOptionEntity, 'id' | 'count'> & {
+    users: UserEntity['id'];
+  };
+};

@@ -2,13 +2,21 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DATA_SOURCE } from 'src/server/database/database.provider';
 import { DataSource } from 'typeorm';
 import { PatchOptionDto, PostOptionDto } from './dto/option.dto';
-import { OptionEntity } from './entities/option.entity';
+import { ClientOptionEntity, OptionEntity } from './entities/option.entity';
 
 @Injectable()
 export class OptionsService {
   constructor(@Inject(DATA_SOURCE) private readonly dataSource: DataSource) {}
-  async get() {
-    return this.dataSource.getRepository(OptionEntity).find();
+  async get(): Promise<ClientOptionEntity[]> {
+    return this.dataSource.getRepository(OptionEntity).find({
+      select: {
+        id: true,
+        name: true,
+        cost_in_adenas: true,
+        cost_in_points: true,
+        deleted: true,
+      },
+    });
   }
 
   async post(dto: PostOptionDto) {

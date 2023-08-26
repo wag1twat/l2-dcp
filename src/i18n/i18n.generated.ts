@@ -17,6 +17,23 @@ export type I18nTranslations = {
                     "name": string;
                     "cost_in_points": string;
                     "cost_in_adenas": string;
+                    "toolbar": {
+                        "buttons": {
+                            "add": string;
+                        };
+                    };
+                    "actions": {
+                        "delete": string;
+                        "edit": string;
+                    };
+                };
+            };
+            "shared": {
+                "adenas": {
+                    "postfixes": {
+                        "billion": string;
+                        "trillion": string;
+                    };
                 };
             };
         };
@@ -30,7 +47,18 @@ export type I18nTranslations = {
             };
             "tables": {
                 "days": {
+                    "id": string;
                     "date": string;
+                    "points": string;
+                    "adenas": string;
+                };
+            };
+            "shared": {
+                "adenas": {
+                    "postfixes": {
+                        "billion": string;
+                        "trillion": string;
+                    };
                 };
             };
         };

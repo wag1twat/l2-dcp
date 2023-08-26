@@ -12,7 +12,24 @@
         "id": "ID",
         "name": "Наименование",
         "cost_in_points": "Стоимость / dcp-points",
-        "cost_in_adenas": "Стоимость / адена"
+        "cost_in_adenas": "Стоимость / адена",
+        "toolbar": {
+          "buttons": {
+            "add": "Добавить"
+          }
+        },
+        "actions": {
+          "delete": "Удалить",
+          "edit": "Редактировать"
+        }
+      }
+    },
+    "shared": {
+      "adenas": {
+        "postfixes": {
+          "billion": "млрд",
+          "trillion": "трлн"
+        }
       }
     }
   },
@@ -26,7 +43,18 @@
     },
     "tables": {
       "days": {
-        "date": "Дата"
+        "id": "ID",
+        "date": "Дата",
+        "points": "Dcp-points",
+        "adenas": "Адена"
+      }
+    },
+    "shared": {
+      "adenas": {
+        "postfixes": {
+          "billion": "млрд",
+          "trillion": "трлн"
+        }
       }
     }
   }

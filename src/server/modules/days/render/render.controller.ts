@@ -17,11 +17,15 @@ import { ConfigService } from '@nestjs/config';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { I18nTranslations } from 'src/i18n/i18n.generated';
 import { PagesEnum, PagesPathname } from 'src/shared/constants/pages';
+import { OptionsService } from '../../options';
+import { UsersService } from '../../users/users.service';
 
 @Controller(PagesPathname.DaysPage)
 export class RenderController {
   constructor(
     private readonly daysService: DaysService,
+    private readonly optionsService: OptionsService,
+    private readonly usersService: UsersService,
     private readonly queriesService: QueriesService,
     private readonly configService: ConfigService,
   ) {}
@@ -49,9 +53,16 @@ export class RenderController {
         result.orderBy,
         result.order,
       );
+
+      const users = await this.usersService.get();
+
+      const options = await this.optionsService.get();
+
       return {
         /* fucking hack for next.js > ctx.query */
         days: JSON.parse(JSON.stringify(days)),
+        options: JSON.parse(JSON.stringify(options)),
+        users: JSON.parse(JSON.stringify(users)),
         translations: translations[PagesEnum.DaysPage],
       };
     } catch (error) {

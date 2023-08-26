@@ -1,18 +1,12 @@
 import { IntersectionType } from '@nestjs/mapped-types';
 import { Lang } from 'src/shared/types/queries';
 import { DateManager } from 'src/shared/utils/date-manager';
-import {
-  BaseQueryLang,
-  BaseQueriesDatesRange,
-  BaseQueryOrderBy,
-  BaseQueryOrder,
-} from '../../queries/dto/base-queries.dto';
+import { BaseQueryLang } from '../../queries/dto/base-queries.dto';
+import { GetQueriesDto } from '../queries';
 
 export class RenderQueriesDto extends IntersectionType(
+  GetQueriesDto,
   BaseQueryLang,
-  BaseQueriesDatesRange,
-  BaseQueryOrderBy,
-  BaseQueryOrder,
 ) {
   constructor(queries: RenderQueriesDto) {
     super();

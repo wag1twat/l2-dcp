@@ -4,7 +4,7 @@ import { entitiesId, entityId } from 'src/server/utils';
 import { Between, DataSource } from 'typeorm';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
 import { DayOptionEntity } from './entities/day-option.entity';
-import { DayEntity } from './entities/day.entity';
+import { ClientDayEntity, DayEntity } from './entities/day.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import {
   dayEntityUpdateEvent,
@@ -21,17 +21,24 @@ export class DaysService {
     private eventEmitter: EventEmitter2,
   ) {}
 
-  async get(from: string, to: string, orderBy: string, order: Order) {
-    return await this.dataSource
+  async get(
+    from: string,
+    to: string,
+    orderBy: string,
+    order: Order,
+  ): Promise<ClientDayEntity[]> {
+    return (await this.dataSource
       .getRepository(DayEntity)
       .createQueryBuilder('days')
+      .select(['days.id', 'days.date', 'days.points', 'days.adenas'])
+      .loadRelationCountAndMap('days.options_count', 'days.options')
+      .loadRelationCountAndMap('days.users_count', 'days.options.users')
+      .leftJoin('days.options', 'options')
+      .addSelect(['options.id', 'options.count'])
+      .loadRelationIdAndMap('users', 'options.users')
       .where({ date: Between(from, to) })
       .orderBy(`days.${orderBy}`, order)
-      .leftJoinAndSelect('days.options', 'options')
-      .leftJoinAndSelect('options.option', 'option')
-      .leftJoinAndSelect('options.users', 'users')
-      .leftJoinAndSelect('options.day', 'day')
-      .getMany();
+      .getMany()) as unknown as ClientDayEntity[];
   }
 
   async post(dto: PostDayDto) {
