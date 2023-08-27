@@ -1,12 +1,14 @@
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, CircularProgress } from '@chakra-ui/react';
 import React from 'react';
 
 export interface TableLayoutProps {
   Toolbar: React.ReactNode;
+  isLoading?: boolean;
 }
 
 export const TableLayout = ({
   Toolbar,
+  isLoading,
   children,
 }: React.PropsWithChildren<TableLayoutProps>) => {
   if (!Toolbar) {
@@ -39,7 +41,26 @@ export const TableLayout = ({
         px={2}
         pb={2}
         justifyContent="center"
+        position="relative"
       >
+        <Box
+          position="absolute"
+          top={0}
+          right={0}
+          bottom={0}
+          width="full"
+          height="full"
+          background="blue-brand-90"
+          zIndex={1000}
+          pointerEvents="auto"
+          userSelect="none"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          hidden={!isLoading}
+        >
+          <CircularProgress isIndeterminate color="light-blue-brand-0" />
+        </Box>
         {children}
       </Flex>
     </Flex>

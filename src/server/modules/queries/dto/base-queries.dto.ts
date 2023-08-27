@@ -49,7 +49,7 @@ export class BaseQueryLang {
 
 export class BaseQueryOrder {
   @IsNotEmpty({ message: i18nValidationMessage('validation.NOT_EMPTY') })
-  @IsEnum(['ASC', 'DESC'], {
+  @IsEnum(['ASC', 'DESC', undefined], {
     message: i18nValidationMessage('validation.IS_ENUM'),
   })
   readonly order!: Order;

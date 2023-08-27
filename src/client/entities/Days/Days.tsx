@@ -1,52 +1,31 @@
-import DatePicker, { RangeValue } from 'src/client/shared/DatePicker';
+import { RangePicker } from 'src/client/shared/RangePicker';
 import { createColumnHelper } from '@tanstack/react-table';
 import React from 'react';
-import { useAdenasValue, useUrlSearchParams } from 'src/client/hooks';
-import { useDays } from 'src/client/hooks/api';
-import { NoSsr, ReactTable } from 'src/client/layouts';
+import { useAdenasValue } from 'src/client/hooks';
+import { useDays, useDaysUtility } from 'src/client/hooks/api';
+import { NoSsr, ReactTable, TableParts } from 'src/client/layouts';
 import { ClientDayEntity } from 'src/server/modules/days/entities/day.entity';
 import { DateManager } from 'src/shared/utils/date-manager';
-import { useTranslations } from './providers';
-import { DateTime } from 'luxon';
-import Router from 'next/router';
 import { useIsClient } from 'src/client/hooks/useIsClient';
-import queryString from 'query-string';
-import { pagesPathname } from 'src/shared/constants/pages';
-import { GetQueriesType } from 'src/server/modules/days/queries';
-import { omit } from 'lodash';
+import { useDaysPageSsrProps } from './model';
+import { GetDaysQueriesType } from 'src/server/modules/days/queries';
 
-interface DaysProps {
-  ssrDays: ClientDayEntity[];
-}
+interface DaysProps {}
 
 const columnHelper = createColumnHelper<ClientDayEntity>();
-const { RangePicker } = DatePicker;
 
-export const Days = ({ ssrDays }: React.PropsWithChildren<DaysProps>) => {
+export const Days = (props: React.PropsWithChildren<DaysProps>) => {
   const isClient = useIsClient();
 
-  const { searchParams } = useUrlSearchParams();
+  const { translations } = useDaysPageSsrProps();
 
-  // TODO: Refactor
-  const queries = React.useMemo(
-    () => ({
-      from: searchParams.get('from'),
-      to: searchParams.get('to'),
-      orderBy: searchParams.get('orderBy'),
-      order: searchParams.get('order'),
-      lang: searchParams.get('lang'),
-    }),
-    [searchParams],
+  const queryUtility = useDaysUtility();
+
+  const [queries, setQueries] = React.useState<GetDaysQueriesType>(() =>
+    queryUtility.getDefaultQueries(),
   );
 
-  console.log(queries);
-
-  const daysQuery = useDays(
-    { initialData: ssrDays },
-    omit(queries, 'lang') as GetQueriesType,
-  );
-
-  const translations = useTranslations();
+  const { query } = useDays({}, queries);
 
   const adenasValue = useAdenasValue(translations.shared.adenas.postfixes);
 
@@ -55,57 +34,83 @@ export const Days = ({ ssrDays }: React.PropsWithChildren<DaysProps>) => {
       columnHelper.accessor('id', {
         header: () => <span>{translations.tables.days.id}</span>,
         cell: (info) => info.getValue(),
+        enableSorting: false,
       }),
       columnHelper.accessor('date', {
-        header: () => <span>{translations.tables.days.date}</span>,
+        header: () => (
+          <TableParts.SortTrigger
+            order={queries.order}
+            orderBy="date"
+            currentOrderBy={queries.orderBy}
+            onChange={(orderBy, order) =>
+              setQueries((previous) => ({ ...previous, order, orderBy }))
+            }
+          >
+            <span>{translations.tables.days.date}</span>
+          </TableParts.SortTrigger>
+        ),
         cell: (info) => DateManager.CLIENT_DATE(info.getValue()),
+        enableSorting: false,
       }),
       columnHelper.accessor('points', {
-        header: () => <span>{translations.tables.days.points}</span>,
+        header: () => (
+          <TableParts.SortTrigger
+            order={queries.order}
+            orderBy="points"
+            currentOrderBy={queries.orderBy}
+            onChange={(orderBy, order) =>
+              setQueries((previous) => ({ ...previous, order, orderBy }))
+            }
+          >
+            <span>{translations.tables.days.points}</span>
+          </TableParts.SortTrigger>
+        ),
         cell: (info) => info.getValue(),
+        enableSorting: false,
       }),
       columnHelper.accessor('adenas', {
-        header: () => <span>{translations.tables.days.adenas}</span>,
+        header: () => (
+          <TableParts.SortTrigger
+            order={queries.order}
+            orderBy="adenas"
+            currentOrderBy={queries.orderBy}
+            onChange={(orderBy, order) =>
+              setQueries((previous) => ({ ...previous, order, orderBy }))
+            }
+          >
+            <span>{translations.tables.days.adenas}</span>
+          </TableParts.SortTrigger>
+        ),
         cell: (info) => adenasValue(info.getValue() || 0),
+        enableSorting: false,
       }),
     ],
-    [translations.tables],
+    [queries, translations.tables],
   );
 
   // TODO: Refactor
-  const handleChangeDateRange = React.useCallback((range: RangeValue) => {
-    const nextQueries = new Map([
-      ['from', range?.[0]?.toISODate() as string],
-      ['to', range?.[1]?.toISODate() as string],
-      ['orderBy', queries.orderBy || ''],
-      ['order', queries.order || ''],
-      ['lang', queries.lang || ''],
-    ]);
-
-    const params = new URLSearchParams(Object.fromEntries(nextQueries));
-
-    Router.replace(
-      `${pagesPathname('DaysPage')}?${params.toString()}`,
-      undefined,
-      { shallow: true },
-    );
+  const handleChangeDateRange = React.useCallback((range: [string, string]) => {
+    setQueries((previos) => ({
+      ...previos,
+      from: range[0],
+      to: range[1],
+    }));
   }, []);
+
   return (
     <NoSsr>
       <ReactTable
         Toolbar={
           isClient && (
             <RangePicker
-              value={[
-                DateTime.fromISO(Router.query.from as string),
-                DateTime.fromISO(Router.query.to as string),
-              ]}
+              value={[queries.from, queries.to]}
               onChange={handleChangeDateRange}
             />
           )
         }
-        data={daysQuery.data || []}
+        data={query.data || []}
         columns={columns}
+        isLoading={query.isLoading}
       />
     </NoSsr>
   );

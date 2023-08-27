@@ -5,7 +5,6 @@ import { OptionEntity } from 'src/server/modules/options/entities/option.entity'
 import { buildServerSideProps } from 'src/client/ssr/buildServerSideProps';
 import { TranslationsProvider } from 'src/client/entities/Options/providers';
 import { PageBaseProps, PagesEnum } from 'src/shared/constants/pages';
-import { useStorageSetLastPagePath } from 'src/client/hooks';
 
 interface OptionPageProps extends PageBaseProps<'OptionsPage'> {
   options: OptionEntity[];
@@ -15,7 +14,6 @@ const OptionPage = ({
   translations,
   options,
 }: React.PropsWithChildren<OptionPageProps>) => {
-  useStorageSetLastPagePath(PagesEnum.OptionsPage);
   return (
     <TranslationsProvider translations={translations}>
       <Layout page={PagesEnum.OptionsPage}>

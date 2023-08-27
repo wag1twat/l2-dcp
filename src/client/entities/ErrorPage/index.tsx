@@ -14,7 +14,7 @@ export default function ErrorPage({ code, message }: ErrorPageProps) {
       right="25%"
       width="auto"
       height="auto"
-      background="brand-a"
+      background="blue-brand-90"
       borderRadius={4}
       color="whiteAlpha.900"
       p={2}

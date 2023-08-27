@@ -14,7 +14,7 @@ import { TransformResponseInterceptor } from 'src/server/interceptors';
 import type { Order } from 'src/shared/types/queries';
 import { DaysService } from './days.service';
 import { PatchDayDto, PostDayDto } from './dto/day.dto';
-import { GetQueriesDto } from './queries';
+import { GetDaysQueriesDto } from './queries';
 
 @Controller('api/days')
 @UseInterceptors(TransformResponseInterceptor)
@@ -22,7 +22,7 @@ import { GetQueriesDto } from './queries';
 export class DaysController {
   constructor(private daysService: DaysService) {}
   @Get()
-  async get(@Query() queries: GetQueriesDto) {
+  async get(@Query() queries: GetDaysQueriesDto) {
     const { from, to, orderBy, order } = queries;
     return await this.daysService.get(from, to, orderBy, order);
   }

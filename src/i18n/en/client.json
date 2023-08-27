@@ -55,6 +55,10 @@
           "billion": "bil",
           "trillion": "tril"
         }
+      },
+      "langs": {
+        "ru": "Russian",
+        "en": "English"
       }
     }
   }

@@ -1,19 +1,15 @@
-import { Controller, Get, Render, Res } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Controller, Get, Query, Render, Res } from '@nestjs/common';
 import type { Response } from 'express';
-import querystring from 'node:querystring';
-import { PagesPathname } from 'src/shared/constants/pages';
+import { I18n, I18nContext } from 'nestjs-i18n';
+import { PagesEnum, pagesPathname } from 'src/shared/constants/pages';
+import { Lang } from 'src/shared/types/queries';
 import { AppService } from './app.service';
-import { defaultQueries as defaultDaysRenderQueries } from './modules/days/render/render-queries.dto';
 
 export const pageNotFoundPath = '/page-not-found';
 export const serverSideErrorOccuredPath = '/server-side-error-occurred';
 @Controller()
 export class AppController {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly appService: AppService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get(pageNotFoundPath)
   @Render('404')
@@ -24,18 +20,11 @@ export class AppController {
   internal() {}
 
   @Get()
-  redirect(@Res() res: Response) {
-    const queries = defaultDaysRenderQueries(
-      this.configService.getOrThrow('FALLBACK_LANGUAGE'),
-    );
-    res.redirect(
-      `/${PagesPathname.DaysPage}?${querystring.stringify({
-        from: queries.from,
-        to: queries.to,
-        orderBy: queries.orderBy,
-        order: queries.order,
-        lang: queries.lang,
-      })}`,
-    );
+  redirect(
+    @Query('lang') lang: Lang,
+    @I18n() i18n: I18nContext,
+    @Res() res: Response,
+  ) {
+    res.redirect(`${pagesPathname(PagesEnum.DaysPage)}?${lang || i18n.lang}`);
   }
 }

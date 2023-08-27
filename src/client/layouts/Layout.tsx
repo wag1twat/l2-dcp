@@ -20,7 +20,7 @@ export const Layout = ({
       <Flex
         flexGrow={1}
         overflow="hidden"
-        background="brand-a"
+        background="blue-brand-90"
         borderRadius={4}
         px={4}
         m={4}

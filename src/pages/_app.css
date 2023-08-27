@@ -20,3 +20,10 @@ body::before {
   background-attachment: fixed !important;
   filter: brightness(60%);
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+.select-none {
+  user-select: none;
+}

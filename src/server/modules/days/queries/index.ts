@@ -6,11 +6,11 @@ import {
   BaseQueryOrder,
 } from '../../queries/dto/base-queries.dto';
 
-export class GetQueriesDto extends IntersectionType(
+export class GetDaysQueriesDto extends IntersectionType(
   BaseQueriesDatesRange,
   BaseQueryOrder,
 ) {
-  constructor(queries: GetQueriesDto) {
+  constructor(queries: GetDaysQueriesDto) {
     super();
     Object.assign(this, queries);
   }
@@ -21,4 +21,4 @@ export class GetQueriesDto extends IntersectionType(
   readonly orderBy!: 'date' | 'points' | 'adenas';
 }
 
-export type GetQueriesType = GetQueriesDto;
+export type GetDaysQueriesType = GetDaysQueriesDto;
