@@ -1,7 +1,18 @@
-import { DatePicker as AntdDatePicker } from 'antd';
+import 'dayjs/locale/ru';
+import ru from 'antd/locale/ru_RU';
+import 'dayjs/locale/en';
+import en from 'antd/locale/en_US';
+import { ConfigProvider, DatePicker as AntdDatePicker } from 'antd';
 import { DateTime } from 'luxon';
 import luxonGenerateConfig from 'rc-picker/lib/generate/luxon';
 import { RangePickerCss } from './RangePickerCss';
+import React from 'react';
+import { useLang } from 'src/client/hooks';
+
+const locales = {
+  ru,
+  en,
+};
 
 const CoreDatePicker =
   AntdDatePicker.generatePicker<DateTime>(luxonGenerateConfig);
@@ -18,6 +29,8 @@ interface DatePickerProps {
 }
 
 function RangePicker({ value, onChange }: DatePickerProps) {
+  const { item } = useLang();
+
   const _value = [DateTime.fromISO(value[0]), DateTime.fromISO(value[1])] as [
     DateTime | null,
     DateTime | null,
@@ -32,7 +45,9 @@ function RangePicker({ value, onChange }: DatePickerProps) {
 
   return (
     <RangePickerCss>
-      <CoreDatePicker.RangePicker value={_value} onChange={_onChange} />
+      <ConfigProvider locale={locales[item]}>
+        <CoreDatePicker.RangePicker value={_value} onChange={_onChange} />
+      </ConfigProvider>
     </RangePickerCss>
   );
 }
