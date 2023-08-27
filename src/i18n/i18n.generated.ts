@@ -34,7 +34,7 @@ export type I18nTranslations = {
                         "billion": string;
                         "trillion": string;
                     };
-                },
+                };
                 "langs": {
                     "ru": string;
                     "en": string;

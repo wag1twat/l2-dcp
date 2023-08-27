@@ -30,6 +30,10 @@
           "billion": "млрд",
           "trillion": "трлн"
         }
+      },
+      "langs": {
+        "ru": "Russian",
+        "en": "English"
       }
     }
   },

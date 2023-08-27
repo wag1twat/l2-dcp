@@ -2,7 +2,7 @@ import { VStack, HStack, Button, Flex } from '@chakra-ui/react';
 import Router from 'next/router';
 import React from 'react';
 import { SelectLang } from 'src/client/features';
-import { useTranslationPage } from 'src/client/hooks';
+import { useLang, useTranslationPage } from 'src/client/hooks';
 import { Page, PagesEnum, pagesPathname } from 'src/shared/constants/pages';
 
 interface HeaderProps {
@@ -13,6 +13,8 @@ export const Header = ({
   page,
   children,
 }: React.PropsWithChildren<HeaderProps>) => {
+  const { item } = useLang();
+
   const translations = useTranslationPage(page);
 
   if (!translations) {
@@ -25,13 +27,19 @@ export const Header = ({
         <HStack>
           <Button
             size="sm"
-            onClick={() => Router.push(pagesPathname(PagesEnum.OptionsPage))}
+            onClick={() =>
+              Router.push(
+                `${pagesPathname(PagesEnum.OptionsPage)}?lang=${item}`,
+              )
+            }
           >
             {translations.header.buttons.options}
           </Button>
           <Button
             size="sm"
-            onClick={() => Router.push(pagesPathname(PagesEnum.DaysPage))}
+            onClick={() =>
+              Router.push(`${pagesPathname(PagesEnum.DaysPage)}?lang=${item}`)
+            }
           >
             {translations.header.buttons.days}
           </Button>
