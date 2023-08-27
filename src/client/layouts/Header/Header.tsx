@@ -1,6 +1,7 @@
-import { VStack, HStack, Button, Flex, Select } from '@chakra-ui/react';
+import { VStack, HStack, Button, Flex } from '@chakra-ui/react';
 import Router from 'next/router';
 import React from 'react';
+import { SelectLang } from 'src/client/features';
 import { useTranslationPage } from 'src/client/hooks';
 import { Page, PagesEnum, pagesPathname } from 'src/shared/constants/pages';
 
@@ -36,10 +37,7 @@ export const Header = ({
           </Button>
         </HStack>
         <HStack>
-          <Select size="xs">
-            <option></option>
-            <option></option>
-          </Select>
+          <SelectLang langs={translations.shared.langs} />
           <Button size="sm">{translations.header.buttons.auth}</Button>
         </HStack>
       </Flex>
